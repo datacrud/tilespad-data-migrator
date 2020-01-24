@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace StandaloneDatabase.Models
+{
+    public partial class PurchaseOrderPayment
+    {
+        public string Id { get; set; }
+        public string PurchaseOrderId { get; set; }
+        public int PaymentMethod { get; set; }
+        public string BankId { get; set; }
+        public string BankCheckId { get; set; }
+        public double Paid { get; set; }
+        public double Discount { get; set; }
+        public double Due { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime Modified { get; set; }
+        public string ModifiedBy { get; set; }
+        public bool Active { get; set; }
+        public DateTime Date { get; set; }
+        public string BranchId { get; set; }
+
+        public virtual PurchaseOrder PurchaseOrder { get; set; }
+    }
+}
