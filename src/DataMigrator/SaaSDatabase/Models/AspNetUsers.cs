@@ -191,6 +191,12 @@ namespace SaaSDatabase.Models
             SchedulerModifiedByNavigation = new HashSet<Scheduler>();
             StockCreatedByNavigation = new HashSet<Stock>();
             StockDeletedByNavigation = new HashSet<Stock>();
+            StockLessPurchaseReturnProductCreatedByNavigation = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessPurchaseReturnProductDeletedByNavigation = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessPurchaseReturnProductModifiedByNavigation = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessSaleReturnProductCreatedByNavigation = new HashSet<StockLessSaleReturnProduct>();
+            StockLessSaleReturnProductDeletedByNavigation = new HashSet<StockLessSaleReturnProduct>();
+            StockLessSaleReturnProductModifiedByNavigation = new HashSet<StockLessSaleReturnProduct>();
             StockModifiedByNavigation = new HashSet<Stock>();
             StockTransferCreatedByNavigation = new HashSet<StockTransfer>();
             StockTransferDeletedByNavigation = new HashSet<StockTransfer>();
@@ -484,6 +490,12 @@ namespace SaaSDatabase.Models
         public virtual ICollection<Scheduler> SchedulerModifiedByNavigation { get; set; }
         public virtual ICollection<Stock> StockCreatedByNavigation { get; set; }
         public virtual ICollection<Stock> StockDeletedByNavigation { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProductCreatedByNavigation { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProductDeletedByNavigation { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProductModifiedByNavigation { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProductCreatedByNavigation { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProductDeletedByNavigation { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProductModifiedByNavigation { get; set; }
         public virtual ICollection<Stock> StockModifiedByNavigation { get; set; }
         public virtual ICollection<StockTransfer> StockTransferCreatedByNavigation { get; set; }
         public virtual ICollection<StockTransfer> StockTransferDeletedByNavigation { get; set; }

@@ -5,9 +5,14 @@ namespace SaaSDatabase.Models
 {
     public partial class StocklessSaleReturn
     {
+        public StocklessSaleReturn()
+        {
+            StockLessSaleReturnProduct = new HashSet<StockLessSaleReturnProduct>();
+        }
+
         public string Id { get; set; }
         public string CustomerId { get; set; }
-        public int MeasurementType { get; set; }
+        public int? MeasurementType { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime Date { get; set; }
         public string EmployeeId { get; set; }
@@ -40,5 +45,6 @@ namespace SaaSDatabase.Models
         public virtual Employee Employee { get; set; }
         public virtual AspNetUsers ModifiedByNavigation { get; set; }
         public virtual Tenant Tenant { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
     }
 }

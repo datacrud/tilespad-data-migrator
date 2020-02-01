@@ -52,6 +52,8 @@ namespace SaaSDatabase.Models
             SaleReturnProduct = new HashSet<SaleReturnProduct>();
             Scheduler = new HashSet<Scheduler>();
             Stock = new HashSet<Stock>();
+            StockLessPurchaseReturnProduct = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessSaleReturnProduct = new HashSet<StockLessSaleReturnProduct>();
             StockTransfer = new HashSet<StockTransfer>();
             StockTransferOrder = new HashSet<StockTransferOrder>();
             StockTransferOrderProduct = new HashSet<StockTransferOrderProduct>();
@@ -140,6 +142,8 @@ namespace SaaSDatabase.Models
         public virtual ICollection<SaleReturnProduct> SaleReturnProduct { get; set; }
         public virtual ICollection<Scheduler> Scheduler { get; set; }
         public virtual ICollection<Stock> Stock { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProduct { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
         public virtual ICollection<StockTransfer> StockTransfer { get; set; }
         public virtual ICollection<StockTransferOrder> StockTransferOrder { get; set; }
         public virtual ICollection<StockTransferOrderProduct> StockTransferOrderProduct { get; set; }

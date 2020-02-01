@@ -35,6 +35,7 @@ namespace SaaSDatabase.Models
         public string IpAddress { get; set; }
         public double TotalReturnDiscount { get; set; }
         public int? Order { get; set; }
+        public string PurchaseOrderId { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Company Company { get; set; }
@@ -42,6 +43,7 @@ namespace SaaSDatabase.Models
         public virtual AspNetUsers DeletedByNavigation { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual AspNetUsers ModifiedByNavigation { get; set; }
+        public virtual PurchaseOrder PurchaseOrder { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual ICollection<PurchaseReturnProduct> PurchaseReturnProduct { get; set; }

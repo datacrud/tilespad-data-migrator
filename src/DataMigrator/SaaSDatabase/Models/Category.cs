@@ -16,6 +16,8 @@ namespace SaaSDatabase.Models
             SaleProduct = new HashSet<SaleProduct>();
             SaleReturnProduct = new HashSet<SaleReturnProduct>();
             Stock = new HashSet<Stock>();
+            StockLessPurchaseReturnProduct = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessSaleReturnProduct = new HashSet<StockLessSaleReturnProduct>();
             StockTransfer = new HashSet<StockTransfer>();
             Subcategory = new HashSet<Subcategory>();
             SupplierCategory = new HashSet<SupplierCategory>();
@@ -58,6 +60,8 @@ namespace SaaSDatabase.Models
         public virtual ICollection<SaleProduct> SaleProduct { get; set; }
         public virtual ICollection<SaleReturnProduct> SaleReturnProduct { get; set; }
         public virtual ICollection<Stock> Stock { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProduct { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
         public virtual ICollection<StockTransfer> StockTransfer { get; set; }
         public virtual ICollection<Subcategory> Subcategory { get; set; }
         public virtual ICollection<SupplierCategory> SupplierCategory { get; set; }

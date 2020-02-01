@@ -23,7 +23,18 @@ namespace Client.Extensions
                 foreach (var propertyName in propertyNames)
                 {
                     var propertyInfo = type.GetProperty(propertyName);
-                    if (propertyInfo != null) propertyInfo.SetValue(collection, null);
+                    if (propertyInfo != null)
+                    {
+                        var value = propertyInfo.GetValue(collection);
+                        try
+                        {
+                            Guid.Parse(value.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            propertyInfo.SetValue(collection, null);
+                        }
+                    }
                 }
 
                 var created = type.GetProperty($"{nameof(SaaSDatabase.Models.AspNetUsers.Created)}");

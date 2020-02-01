@@ -36,6 +36,11 @@ namespace SaaSDatabase.Models
         public string CompanyId { get; set; }
         public string DeviceInfo { get; set; }
         public string IpAddress { get; set; }
+        public double SaleProfit { get; set; }
+        public bool IsProfitCalculated { get; set; }
+        public int ReturnedBox { get; set; }
+        public int ReturnedQuantity { get; set; }
+        public double ReturnedSquarefit { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

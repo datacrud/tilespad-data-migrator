@@ -11,7 +11,6 @@ namespace SaaSDatabase.Models
         public string PurchaseOrderId { get; set; }
         public string WarehouseId { get; set; }
         public string CategoryId { get; set; }
-        public string SupplierCategoryId { get; set; }
         public string ProductId { get; set; }
         public string ProductName { get; set; }
         public string TruckNumber { get; set; }
@@ -41,6 +40,18 @@ namespace SaaSDatabase.Models
         public string CompanyId { get; set; }
         public string DeviceInfo { get; set; }
         public string IpAddress { get; set; }
+        public int DeliveredBox { get; set; }
+        public int DeliveredQuantity { get; set; }
+        public double DeliveredSquarefit { get; set; }
+        public int SoldBox { get; set; }
+        public int SoldQuantity { get; set; }
+        public double SoldSquarefit { get; set; }
+        public double Rate { get; set; }
+        public double TotalValue { get; set; }
+        public bool IsRateImported { get; set; }
+        public bool IsSoldOut { get; set; }
+        public bool IsDelivered { get; set; }
+        public bool IsOfferItem { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

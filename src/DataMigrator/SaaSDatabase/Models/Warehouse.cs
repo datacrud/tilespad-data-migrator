@@ -14,6 +14,8 @@ namespace SaaSDatabase.Models
             PurchaseReturnProduct = new HashSet<PurchaseReturnProduct>();
             SaleReturnProduct = new HashSet<SaleReturnProduct>();
             Stock = new HashSet<Stock>();
+            StockLessPurchaseReturnProduct = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessSaleReturnProduct = new HashSet<StockLessSaleReturnProduct>();
             StockTransferDestinationWarehouse = new HashSet<StockTransfer>();
             StockTransferOrderDestinationWarehouse = new HashSet<StockTransferOrder>();
             StockTransferOrderSourceWarehouse = new HashSet<StockTransferOrder>();
@@ -56,6 +58,8 @@ namespace SaaSDatabase.Models
         public virtual ICollection<PurchaseReturnProduct> PurchaseReturnProduct { get; set; }
         public virtual ICollection<SaleReturnProduct> SaleReturnProduct { get; set; }
         public virtual ICollection<Stock> Stock { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProduct { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
         public virtual ICollection<StockTransfer> StockTransferDestinationWarehouse { get; set; }
         public virtual ICollection<StockTransferOrder> StockTransferOrderDestinationWarehouse { get; set; }
         public virtual ICollection<StockTransferOrder> StockTransferOrderSourceWarehouse { get; set; }

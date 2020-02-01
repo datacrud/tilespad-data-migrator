@@ -16,6 +16,8 @@ namespace SaaSDatabase.Models
             SaleProduct = new HashSet<SaleProduct>();
             SaleReturnProduct = new HashSet<SaleReturnProduct>();
             Stock = new HashSet<Stock>();
+            StockLessPurchaseReturnProduct = new HashSet<StockLessPurchaseReturnProduct>();
+            StockLessSaleReturnProduct = new HashSet<StockLessSaleReturnProduct>();
             StockTransfer = new HashSet<StockTransfer>();
             StockTransferOrderProduct = new HashSet<StockTransferOrderProduct>();
             StockTransferReceiveProduct = new HashSet<StockTransferReceiveProduct>();
@@ -57,6 +59,8 @@ namespace SaaSDatabase.Models
         public double AverageSalePricePerSquareFit { get; set; }
         public bool IsExpired { get; set; }
         public int? MeasurementType { get; set; }
+        public string ImageName { get; set; }
+        public string ImagePath { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual Company Company { get; set; }
@@ -74,6 +78,8 @@ namespace SaaSDatabase.Models
         public virtual ICollection<SaleProduct> SaleProduct { get; set; }
         public virtual ICollection<SaleReturnProduct> SaleReturnProduct { get; set; }
         public virtual ICollection<Stock> Stock { get; set; }
+        public virtual ICollection<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProduct { get; set; }
+        public virtual ICollection<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
         public virtual ICollection<StockTransfer> StockTransfer { get; set; }
         public virtual ICollection<StockTransferOrderProduct> StockTransferOrderProduct { get; set; }
         public virtual ICollection<StockTransferReceiveProduct> StockTransferReceiveProduct { get; set; }

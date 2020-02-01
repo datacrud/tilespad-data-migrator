@@ -11,6 +11,7 @@ namespace SaaSDatabase.Models
             DeliveryProduct = new HashSet<DeliveryProduct>();
             SalePayment = new HashSet<SalePayment>();
             SaleProduct = new HashSet<SaleProduct>();
+            SaleReturn = new HashSet<SaleReturn>();
         }
 
         public string Id { get; set; }
@@ -64,5 +65,6 @@ namespace SaaSDatabase.Models
         public virtual ICollection<DeliveryProduct> DeliveryProduct { get; set; }
         public virtual ICollection<SalePayment> SalePayment { get; set; }
         public virtual ICollection<SaleProduct> SaleProduct { get; set; }
+        public virtual ICollection<SaleReturn> SaleReturn { get; set; }
     }
 }

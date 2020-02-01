@@ -12,6 +12,7 @@ namespace SaaSDatabase.Models
             PurchaseOrderProduct = new HashSet<PurchaseOrderProduct>();
             PurchaseReceive = new HashSet<PurchaseReceive>();
             PurchaseReceiveProduct = new HashSet<PurchaseReceiveProduct>();
+            PurchaseReturn = new HashSet<PurchaseReturn>();
         }
 
         public string Id { get; set; }
@@ -62,5 +63,6 @@ namespace SaaSDatabase.Models
         public virtual ICollection<PurchaseOrderProduct> PurchaseOrderProduct { get; set; }
         public virtual ICollection<PurchaseReceive> PurchaseReceive { get; set; }
         public virtual ICollection<PurchaseReceiveProduct> PurchaseReceiveProduct { get; set; }
+        public virtual ICollection<PurchaseReturn> PurchaseReturn { get; set; }
     }
 }

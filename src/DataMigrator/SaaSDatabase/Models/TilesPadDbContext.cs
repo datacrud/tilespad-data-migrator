@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SaaSDatabase.Models
 {
-    public partial class TilesPadDbContext : DbContext
+    public partial class TilesPadDBContext : DbContext
     {
-        public TilesPadDbContext()
+        public TilesPadDBContext()
         {
         }
 
-        public TilesPadDbContext(DbContextOptions<TilesPadDbContext> options)
+        public TilesPadDBContext(DbContextOptions<TilesPadDBContext> options)
             : base(options)
         {
         }
@@ -89,6 +89,8 @@ namespace SaaSDatabase.Models
         public virtual DbSet<Set> Set { get; set; }
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<StockLessPurchaseReturnProduct> StockLessPurchaseReturnProduct { get; set; }
+        public virtual DbSet<StockLessSaleReturnProduct> StockLessSaleReturnProduct { get; set; }
         public virtual DbSet<StockTransfer> StockTransfer { get; set; }
         public virtual DbSet<StockTransferOrder> StockTransferOrder { get; set; }
         public virtual DbSet<StockTransferOrderProduct> StockTransferOrderProduct { get; set; }
@@ -114,7 +116,7 @@ namespace SaaSDatabase.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=TilesPadDb;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=TilesPadDB;Trusted_Connection=True;");
             }
         }
 
@@ -4381,6 +4383,9 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
+                entity.HasIndex(e => e.PurchaseOrderId)
+                    .HasName("IX_PurchaseOrderId");
+
                 entity.HasIndex(e => e.SupplierId)
                     .HasName("IX_SupplierId");
 
@@ -4408,6 +4413,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(128);
+
+                entity.Property(e => e.PurchaseOrderId).HasMaxLength(128);
 
                 entity.Property(e => e.SupplierId).HasMaxLength(128);
 
@@ -4442,6 +4449,11 @@ namespace SaaSDatabase.Models
                     .WithMany(p => p.PurchaseReturnModifiedByNavigation)
                     .HasForeignKey(d => d.ModifiedBy)
                     .HasConstraintName("FK_dbo.PurchaseReturn_dbo.AspNetUsers_ModifiedBy");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithMany(p => p.PurchaseReturn)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .HasConstraintName("FK_dbo.PurchaseReturn_dbo.PurchaseOrder_PurchaseOrderId");
 
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.PurchaseReturn)
@@ -5047,6 +5059,9 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
+                entity.HasIndex(e => e.SaleId)
+                    .HasName("IX_SaleId");
+
                 entity.HasIndex(e => e.TenantId)
                     .HasName("IX_TenantId");
 
@@ -5073,6 +5088,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(128);
+
+                entity.Property(e => e.SaleId).HasMaxLength(128);
 
                 entity.Property(e => e.TenantId).HasMaxLength(128);
 
@@ -5110,6 +5127,11 @@ namespace SaaSDatabase.Models
                     .WithMany(p => p.SaleReturnModifiedByNavigation)
                     .HasForeignKey(d => d.ModifiedBy)
                     .HasConstraintName("FK_dbo.SaleReturn_dbo.AspNetUsers_ModifiedBy");
+
+                entity.HasOne(d => d.Sale)
+                    .WithMany(p => p.SaleReturn)
+                    .HasForeignKey(d => d.SaleId)
+                    .HasConstraintName("FK_dbo.SaleReturn_dbo.Sale_SaleId");
 
                 entity.HasOne(d => d.Tenant)
                     .WithMany(p => p.SaleReturn)
@@ -5517,6 +5539,264 @@ namespace SaaSDatabase.Models
                     .WithMany(p => p.Stock)
                     .HasForeignKey(d => d.WarehouseId)
                     .HasConstraintName("FK_dbo.Stock_dbo.Warehouse_WarehouseId");
+            });
+
+            modelBuilder.Entity<StockLessPurchaseReturnProduct>(entity =>
+            {
+                entity.HasIndex(e => e.BranchId)
+                    .HasName("IX_BranchId");
+
+                entity.HasIndex(e => e.CategoryId)
+                    .HasName("IX_CategoryId");
+
+                entity.HasIndex(e => e.CompanyId)
+                    .HasName("IX_CompanyId");
+
+                entity.HasIndex(e => e.CreatedBy)
+                    .HasName("IX_CreatedBy");
+
+                entity.HasIndex(e => e.DeletedBy)
+                    .HasName("IX_DeletedBy");
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("IX_Id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.ModifiedBy)
+                    .HasName("IX_ModifiedBy");
+
+                entity.HasIndex(e => e.ProductId)
+                    .HasName("IX_ProductId");
+
+                entity.HasIndex(e => e.StockLessPurchaseReturnId)
+                    .HasName("IX_StockLessPurchaseReturnId");
+
+                entity.HasIndex(e => e.SubcategoryId)
+                    .HasName("IX_SubcategoryId");
+
+                entity.HasIndex(e => e.TenantId)
+                    .HasName("IX_TenantId");
+
+                entity.HasIndex(e => e.WarehouseId)
+                    .HasName("IX_WarehouseId");
+
+                entity.Property(e => e.Id).HasMaxLength(128);
+
+                entity.Property(e => e.BranchId).HasMaxLength(128);
+
+                entity.Property(e => e.CategoryId).HasMaxLength(128);
+
+                entity.Property(e => e.CompanyId).HasMaxLength(128);
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(128);
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Deleted).HasColumnType("datetime");
+
+                entity.Property(e => e.DeletedBy).HasMaxLength(128);
+
+                entity.Property(e => e.Modified).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasMaxLength(128);
+
+                entity.Property(e => e.ProductId).HasMaxLength(128);
+
+                entity.Property(e => e.StockLessPurchaseReturnId)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.SubcategoryId).HasMaxLength(128);
+
+                entity.Property(e => e.TenantId).HasMaxLength(128);
+
+                entity.Property(e => e.WarehouseId).HasMaxLength(128);
+
+                entity.HasOne(d => d.Branch)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.BranchId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Branch_BranchId");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Category_CategoryId");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Company_CompanyId");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.StockLessPurchaseReturnProductCreatedByNavigation)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.AspNetUsers_CreatedBy");
+
+                entity.HasOne(d => d.DeletedByNavigation)
+                    .WithMany(p => p.StockLessPurchaseReturnProductDeletedByNavigation)
+                    .HasForeignKey(d => d.DeletedBy)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.AspNetUsers_DeletedBy");
+
+                entity.HasOne(d => d.ModifiedByNavigation)
+                    .WithMany(p => p.StockLessPurchaseReturnProductModifiedByNavigation)
+                    .HasForeignKey(d => d.ModifiedBy)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.AspNetUsers_ModifiedBy");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Product_ProductId");
+
+                entity.HasOne(d => d.StockLessPurchaseReturn)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.StockLessPurchaseReturnId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.StockLessPurchaseReturn_StockLessPurchaseReturnId");
+
+                entity.HasOne(d => d.Subcategory)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.SubcategoryId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Subcategory_SubcategoryId");
+
+                entity.HasOne(d => d.Tenant)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.TenantId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Tenant_TenantId");
+
+                entity.HasOne(d => d.Warehouse)
+                    .WithMany(p => p.StockLessPurchaseReturnProduct)
+                    .HasForeignKey(d => d.WarehouseId)
+                    .HasConstraintName("FK_dbo.StockLessPurchaseReturnProduct_dbo.Warehouse_WarehouseId");
+            });
+
+            modelBuilder.Entity<StockLessSaleReturnProduct>(entity =>
+            {
+                entity.HasIndex(e => e.BranchId)
+                    .HasName("IX_BranchId");
+
+                entity.HasIndex(e => e.CategoryId)
+                    .HasName("IX_CategoryId");
+
+                entity.HasIndex(e => e.CompanyId)
+                    .HasName("IX_CompanyId");
+
+                entity.HasIndex(e => e.CreatedBy)
+                    .HasName("IX_CreatedBy");
+
+                entity.HasIndex(e => e.DeletedBy)
+                    .HasName("IX_DeletedBy");
+
+                entity.HasIndex(e => e.Id)
+                    .HasName("IX_Id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.ModifiedBy)
+                    .HasName("IX_ModifiedBy");
+
+                entity.HasIndex(e => e.ProductId)
+                    .HasName("IX_ProductId");
+
+                entity.HasIndex(e => e.StockLessSaleReturnId)
+                    .HasName("IX_StockLessSaleReturnId");
+
+                entity.HasIndex(e => e.SubcategoryId)
+                    .HasName("IX_SubcategoryId");
+
+                entity.HasIndex(e => e.TenantId)
+                    .HasName("IX_TenantId");
+
+                entity.HasIndex(e => e.WarehouseId)
+                    .HasName("IX_WarehouseId");
+
+                entity.Property(e => e.Id).HasMaxLength(128);
+
+                entity.Property(e => e.BranchId).HasMaxLength(128);
+
+                entity.Property(e => e.CategoryId).HasMaxLength(128);
+
+                entity.Property(e => e.CompanyId).HasMaxLength(128);
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(128);
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Deleted).HasColumnType("datetime");
+
+                entity.Property(e => e.DeletedBy).HasMaxLength(128);
+
+                entity.Property(e => e.Modified).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasMaxLength(128);
+
+                entity.Property(e => e.ProductId).HasMaxLength(128);
+
+                entity.Property(e => e.StockLessSaleReturnId)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.SubcategoryId).HasMaxLength(128);
+
+                entity.Property(e => e.TenantId).HasMaxLength(128);
+
+                entity.Property(e => e.WarehouseId).HasMaxLength(128);
+
+                entity.HasOne(d => d.Branch)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.BranchId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Branch_BranchId");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Category_CategoryId");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Company_CompanyId");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.StockLessSaleReturnProductCreatedByNavigation)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.AspNetUsers_CreatedBy");
+
+                entity.HasOne(d => d.DeletedByNavigation)
+                    .WithMany(p => p.StockLessSaleReturnProductDeletedByNavigation)
+                    .HasForeignKey(d => d.DeletedBy)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.AspNetUsers_DeletedBy");
+
+                entity.HasOne(d => d.ModifiedByNavigation)
+                    .WithMany(p => p.StockLessSaleReturnProductModifiedByNavigation)
+                    .HasForeignKey(d => d.ModifiedBy)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.AspNetUsers_ModifiedBy");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Product_ProductId");
+
+                entity.HasOne(d => d.StockLessSaleReturn)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.StockLessSaleReturnId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.StockLessSaleReturn_StockLessSaleReturnId");
+
+                entity.HasOne(d => d.Subcategory)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.SubcategoryId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Subcategory_SubcategoryId");
+
+                entity.HasOne(d => d.Tenant)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.TenantId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Tenant_TenantId");
+
+                entity.HasOne(d => d.Warehouse)
+                    .WithMany(p => p.StockLessSaleReturnProduct)
+                    .HasForeignKey(d => d.WarehouseId)
+                    .HasConstraintName("FK_dbo.StockLessSaleReturnProduct_dbo.Warehouse_WarehouseId");
             });
 
             modelBuilder.Entity<StockTransfer>(entity =>
