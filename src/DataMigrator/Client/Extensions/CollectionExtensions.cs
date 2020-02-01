@@ -13,6 +13,12 @@ namespace Client.Extensions
     {
         public static DateTime DateTime2Start = new DateTime(1753, 1, 1);
 
+        public static void Swap<T>(this List<T> list, int index1, int index2)
+        {
+            T temp = list[index1];
+            list[index1] = list[index2];
+            list[index2] = temp;
+        }
 
         public static void SetNull<T>(this List<T> collections, params string[] propertyNames)
         {
@@ -156,11 +162,13 @@ namespace Client.Extensions
 
         public static void Prepare<T>(this List<T> map, string tenantId, string companyId, params string[] nullHandlerPropertyNames)
         {
+            Console.WriteLine($"...... preparing tenant data start at {DateTime.Now} ......");
             map.SetNull(nullHandlerPropertyNames);
             map.CheckTime();
             map.SetTenantId(tenantId);
             map.SetCompanyId(companyId);
             map.EnsureTenantId(tenantId);
+            Console.WriteLine($"...... preparing tenant data end at {DateTime.Now} ......");
         }
 
     }
