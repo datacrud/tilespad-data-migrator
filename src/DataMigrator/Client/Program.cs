@@ -80,11 +80,11 @@ namespace Client
 
                 #endregion
 
-                Migrator.SourceContext.ChangeTracker.AutoDetectChangesEnabled = false;
-
                 var sourceType = standaloneDatabaseAssemblyTypes.FirstOrDefault(t => t.FullName == entityType.Name);
                 if (sourceType != null)
                 {
+                    Migrator.Initialize(new TilesCornerDbContext(),new TilesPadDBContext());
+
                     var queryable = Migrator.SourceContext.Set(sourceType);
                     var objects = queryable.ToList();
 

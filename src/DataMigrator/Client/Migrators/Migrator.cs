@@ -27,6 +27,12 @@ namespace Client.Migrators
         {
             SourceContext = sourceContext;
             DestinationContext = destinationContext;
+
+            SourceContext.ChangeTracker.AutoDetectChangesEnabled = false;
+            SourceContext.ChangeTracker.LazyLoadingEnabled = false;
+
+            DestinationContext.ChangeTracker.AutoDetectChangesEnabled = false;
+            DestinationContext.ChangeTracker.LazyLoadingEnabled = false;
         }
 
         public static void Setup(string tenantId, string companyId)
@@ -45,10 +51,10 @@ namespace Client.Migrators
             //var destinationType = standaloneDatabaseAssemblyTypes.FirstOrDefault(t => t.Name.Contains($".{split[split.Length -1]}"));
 
             //var map = Mapper.Map(sourceObjects, sourceType, destinationType);
-            DestinationContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
             using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, TimeSpan.MaxValue))
             {
+
                 if (sourceType == typeof(StandaloneDatabase.Models.AspNetUsers))
                 {
                     var dbSet = DestinationContext.Set<AspNetUsers>();
@@ -58,6 +64,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -75,6 +82,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -93,6 +101,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -110,6 +119,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -128,6 +138,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -145,6 +156,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x=> x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -162,6 +174,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -179,6 +192,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -196,6 +210,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -213,6 +228,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -230,6 +246,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -247,6 +264,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -264,6 +282,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -281,6 +300,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -298,6 +318,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -315,6 +336,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -332,6 +354,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -349,6 +372,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -366,6 +390,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -383,6 +408,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -400,6 +426,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -418,6 +445,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -435,6 +463,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -452,6 +481,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -469,6 +499,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -486,6 +517,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -504,6 +536,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -521,6 +554,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -538,6 +572,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -555,6 +590,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -572,6 +608,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -590,6 +627,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -607,6 +645,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -625,6 +664,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -643,6 +683,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -661,6 +702,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -678,6 +720,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -695,6 +738,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -713,6 +757,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -730,6 +775,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -748,6 +794,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -766,6 +813,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -783,6 +831,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -801,6 +850,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -819,6 +869,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -836,6 +887,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -854,6 +906,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
@@ -871,6 +924,7 @@ namespace Client.Migrators
 
                     foreach (var entity in map)
                     {
+                        Console.WriteLine($"...... checking {entity.Id} ....");
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
                             Console.WriteLine($"...... confirming {entity.Id} ....");
