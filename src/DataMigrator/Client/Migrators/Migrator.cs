@@ -60,6 +60,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -76,6 +77,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -93,6 +95,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -109,6 +112,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -126,6 +130,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -142,6 +147,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x=> x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -158,6 +164,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -174,6 +181,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -190,6 +198,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -206,6 +215,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -222,6 +232,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -238,6 +249,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -254,6 +266,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -270,6 +283,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -286,6 +300,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -302,6 +317,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -318,6 +334,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -334,6 +351,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -350,6 +368,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -366,6 +385,7 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
@@ -382,12 +402,483 @@ namespace Client.Migrators
                     {
                         if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
                         {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
                     }
                 }
 
-               
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Equity))
+                {
+                    var dbSet = DestinationContext.Set<Equity>();
+                    var map = Mapper.Map<List<Equity>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Expense))
+                {
+                    var dbSet = DestinationContext.Set<Expense>();
+                    var map = Mapper.Map<List<Expense>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.ExpenseDetail))
+                {
+                    var dbSet = DestinationContext.Set<ExpenseDetail>();
+                    var map = Mapper.Map<List<ExpenseDetail>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.ExpenseHead))
+                {
+                    var dbSet = DestinationContext.Set<ExpenseHead>();
+                    var map = Mapper.Map<List<ExpenseHead>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.LoginAttempt))
+                {
+                    var dbSet = DestinationContext.Set<LoginAttempt>();
+                    var map = Mapper.Map<List<LoginAttempt>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.OpeningStock))
+                {
+                    var dbSet = DestinationContext.Set<OpeningStock>();
+                    var map = Mapper.Map<List<OpeningStock>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Partner))
+                {
+                    var dbSet = DestinationContext.Set<Partner>();
+                    var map = Mapper.Map<List<Partner>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseOrder))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseOrder>();
+                    var map = Mapper.Map<List<PurchaseOrder>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseOrderPayment))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseOrderPayment>();
+                    var map = Mapper.Map<List<PurchaseOrderPayment>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseOrderProduct))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseOrderProduct>();
+                    var map = Mapper.Map<List<PurchaseOrderProduct>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseReceive))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseReceive>();
+                    var map = Mapper.Map<List<PurchaseReceive>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseReceiveProduct))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseReceiveProduct>();
+                    var map = Mapper.Map<List<PurchaseReceiveProduct>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseReturn))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseReturn>();
+                    var map = Mapper.Map<List<PurchaseReturn>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.PurchaseReturnProduct))
+                {
+                    var dbSet = DestinationContext.Set<PurchaseReturnProduct>();
+                    var map = Mapper.Map<List<PurchaseReturnProduct>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Sale))
+                {
+                    var dbSet = DestinationContext.Set<Sale>();
+                    var map = Mapper.Map<List<Sale>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.SaleProduct))
+                {
+                    var dbSet = DestinationContext.Set<SaleProduct>();
+                    var map = Mapper.Map<List<SaleProduct>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.SalePayment))
+                {
+                    var dbSet = DestinationContext.Set<SalePayment>();
+                    var map = Mapper.Map<List<SalePayment>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.SaleReturn))
+                {
+                    var dbSet = DestinationContext.Set<SaleReturn>();
+                    var map = Mapper.Map<List<SaleReturn>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.SaleReturnProduct))
+                {
+                    var dbSet = DestinationContext.Set<SaleReturnProduct>();
+                    var map = Mapper.Map<List<SaleReturnProduct>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Stock))
+                {
+                    var dbSet = DestinationContext.Set<Stock>();
+                    var map = Mapper.Map<List<Stock>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.StockTransfer))
+                {
+                    var dbSet = DestinationContext.Set<StockTransfer>();
+                    var map = Mapper.Map<List<StockTransfer>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Subcategory))
+                {
+                    var dbSet = DestinationContext.Set<Subcategory>();
+                    var map = Mapper.Map<List<Subcategory>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Supplier))
+                {
+                    var dbSet = DestinationContext.Set<Supplier>();
+                    var map = Mapper.Map<List<Supplier>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.SupplierCategory))
+                {
+                    var dbSet = DestinationContext.Set<SupplierCategory>();
+                    var map = Mapper.Map<List<SupplierCategory>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.TransectionLog))
+                {
+                    var dbSet = DestinationContext.Set<AuditLog>();
+                    var map = Mapper.Map<List<AuditLog>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.Warehouse))
+                {
+                    var dbSet = DestinationContext.Set<Warehouse>();
+                    var map = Mapper.Map<List<Warehouse>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.WestageStock))
+                {
+                    var dbSet = DestinationContext.Set<WastageStock>();
+                    var map = Mapper.Map<List<WastageStock>>(sourceObjects);
+
+                    map.Prepare(TenantId, CompanyId, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                    foreach (var entity in map)
+                    {
+                        if (!dbSet.AsNoTracking().Any(x => x.Id == entity.Id))
+                        {
+                            Console.WriteLine($"...... confirming {entity.Id} ....");
+                            dbSet.Add(entity);
+                        }
+                    }
+                }
+
 
                 DestinationContext.SaveChanges();
 
