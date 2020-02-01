@@ -58,7 +58,7 @@ namespace Client
             {
                 #region Handel Exceptions
 
-                if(entityType.Name == $"{typeof(AggregatedCounter).FullName}") continue;
+                if (entityType.Name == $"{typeof(AggregatedCounter).FullName}") continue;
                 if(entityType.Name == $"{typeof(Hash).FullName}") continue;
                 if(entityType.Name == $"{typeof(Counter).FullName}") continue;
                 if(entityType.Name == $"{typeof(Job).FullName}") continue;
@@ -88,7 +88,10 @@ namespace Client
                     var queryable = Migrator.SourceContext.Set(sourceType);
                     var objects = queryable.ToList();
 
-                    if(objects.Any()) Migrator.Migrate(objects, sourceType);
+                    if (objects.Any())
+                    {
+                        Migrator.Migrate(objects, sourceType);
+                    }
                 }
             }
 
