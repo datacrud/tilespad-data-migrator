@@ -217,153 +217,6 @@ namespace Client.Migrators
                     }
                 }
 
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyBankTransectionalBalance))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyBankAccountBalance>();
-                    var map = Mapper.Map<List<DailyBankAccountBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyCashTransectionalBalance))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyCashAccountBalance>();
-                    var map = Mapper.Map<List<DailyCashAccountBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyCustomerTransectionalBalance))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyCustomerAccountBalance>();
-                    var map = Mapper.Map<List<DailyCustomerAccountBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailySupplierTransectionalBalance))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailySupplierAccountBalance>();
-                    var map = Mapper.Map<List<DailySupplierAccountBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalBalance))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyAccountBalance>();
-                    var map = Mapper.Map<List<DailyAccountBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalProductStock))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyProductStockBalance>();
-                    var map = Mapper.Map<List<DailyProductStockBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
-                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalStock))
-                {
-                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
-
-                    var dbSet = DestinationContext.Set<DailyStockBalance>();
-                    var map = Mapper.Map<List<DailyStockBalance>>(sourceObjects);
-
-                    map.Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
-
-                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
-                    foreach (var entity in map)
-                    {
-                        Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
-                        if (!existingItemIds.Any(x => x == entity.Id))
-                        {
-                            Console.WriteLine($"...... confirming {entity.Id} ....");
-                            dbSet.Add(entity);
-                        }
-                    }
-                }
-
                 else if (sourceType == typeof(StandaloneDatabase.Models.Delivery))
                 {
                     var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
@@ -1089,6 +942,237 @@ namespace Client.Migrators
                         }
                     }
                 }
+
+
+                #region Daily Entities
+
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyBankTransectionalBalance))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyBankAccountBalance>();
+                    var map = Mapper.Map<List<DailyBankAccountBalance>>(sourceObjects);
+
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyCashTransectionalBalance))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyCashAccountBalance>();
+                    var map = Mapper.Map<List<DailyCashAccountBalance>>(sourceObjects);
+
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyCustomerTransectionalBalance))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyCustomerAccountBalance>();
+                    var map = Mapper.Map<List<DailyCustomerAccountBalance>>(sourceObjects);
+
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailySupplierTransectionalBalance))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailySupplierAccountBalance>();
+                    var map = Mapper.Map<List<DailySupplierAccountBalance>>(sourceObjects);
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalBalance))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyAccountBalance>();
+                    var map = Mapper.Map<List<DailyAccountBalance>>(sourceObjects);
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalProductStock))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyProductStockBalance>();
+                    var map = Mapper.Map<List<DailyProductStockBalance>>(sourceObjects);
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                else if (sourceType == typeof(StandaloneDatabase.Models.DailyTransectionalStock))
+                {
+                    var userIds = DestinationContext.Set<AspNetUsers>().AsNoTracking().Select(x => x.Id).ToList();
+
+                    var dbSet = DestinationContext.Set<DailyStockBalance>();
+                    var map = Mapper.Map<List<DailyStockBalance>>(sourceObjects);
+
+                    var existingItemIds = dbSet.AsNoTracking().Select(x => x.Id).ToList();
+                    int take = 1500;
+                    for (var c = 0; c <= map.Count / take + 1; c++)
+                    {
+                        map.Skip(take * c).Take(take).ToList().Prepare(TenantId, CompanyId, userIds, $"{nameof(Tenant.CreatedBy)}", $"{nameof(Tenant.ModifiedBy)}");
+
+                        int i = 0;
+                        foreach (var entity in map)
+                        {
+                            Console.WriteLine($"...... checking {entity.Id} of {sourceType.FullName} ....");
+                            if (!existingItemIds.Any(x => x == entity.Id))
+                            {
+                                Console.WriteLine($"...... confirming {entity.Id} ....");
+                                dbSet.Add(entity);
+                                i++;
+                            }
+
+                            if (i % 500 == 0)
+                            {
+                                DestinationContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
 
                 Console.WriteLine($"Saving start at {DateTime.Now} ....");
                 DestinationContext.SaveChanges();
