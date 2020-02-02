@@ -60,7 +60,7 @@ namespace Client.Mappers
             obj.CreateMap<PurchaseOrderProduct, SaaSDatabase.Models.PurchaseOrderProduct>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReceive, SaaSDatabase.Models.PurchaseReceive>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReceiveProduct, SaaSDatabase.Models.PurchaseReceiveProduct>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<PurchaseReturn, SaaSDatabase.Models.PurchaseReceive>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<PurchaseReturn, SaaSDatabase.Models.PurchaseReturn>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReturnProduct, SaaSDatabase.Models.PurchaseReceiveProduct>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Sale, SaaSDatabase.Models.Sale>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<SalePayment, SaaSDatabase.Models.SalePayment>().IgnoreAllVirtualProperties().ReverseMap();

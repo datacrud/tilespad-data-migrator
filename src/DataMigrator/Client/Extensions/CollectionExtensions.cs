@@ -20,7 +20,7 @@ namespace Client.Extensions
             list[index2] = temp;
         }
 
-        public static void SetNull<T>(this List<T> collections, params string[] propertyNames)
+        public static void SetNull<T>(this List<T> collections, List<string> userIds, params string[] propertyNames)
         {
 
             foreach (var collection in collections)
@@ -35,6 +35,8 @@ namespace Client.Extensions
                         try
                         {
                             Guid.Parse(value.ToString());
+
+                            if (!userIds.Contains(value.ToString())) propertyInfo.SetValue(collection, null);
                         }
                         catch (Exception)
                         {
@@ -160,10 +162,10 @@ namespace Client.Extensions
         }
 
 
-        public static void Prepare<T>(this List<T> map, string tenantId, string companyId, params string[] nullHandlerPropertyNames)
+        public static void Prepare<T>(this List<T> map, string tenantId, string companyId, List<string> userIds, params string[] nullHandlerPropertyNames)
         {
             Console.WriteLine($"...... preparing tenant data start at {DateTime.Now} ......");
-            map.SetNull(nullHandlerPropertyNames);
+            map.SetNull(userIds, nullHandlerPropertyNames);
             map.CheckTime();
             map.SetTenantId(tenantId);
             map.SetCompanyId(companyId);
