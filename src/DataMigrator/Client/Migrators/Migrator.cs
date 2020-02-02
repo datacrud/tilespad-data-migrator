@@ -990,9 +990,12 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
+
                         transaction.Complete();
                     }
                 }
+
             }
 
             else if (sourceType == typeof(StandaloneDatabase.Models.DailyCashTransectionalBalance))
@@ -1029,9 +1032,12 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
+
                         transaction.Complete();
                     }
                 }
+
             }
 
             else if (sourceType == typeof(StandaloneDatabase.Models.DailyCustomerTransectionalBalance))
@@ -1068,6 +1074,7 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
                         transaction.Complete();
                     }
                 }
@@ -1107,6 +1114,7 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
                         transaction.Complete();
                     }
                 }
@@ -1146,6 +1154,7 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
                         transaction.Complete();
                     }
                 }
@@ -1185,6 +1194,7 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
                         transaction.Complete();
                     }
                 }
@@ -1224,19 +1234,24 @@ namespace Client.Migrators
                             }
                         }
 
+                        Commit();
                         transaction.Complete();
                     }
                 }
             }
 
-
-            //Console.WriteLine($"Saving start at {DateTime.Now} ....");
-            //DestinationContext.SaveChanges();
-            //Console.WriteLine($"Saving finished at {DateTime.Now} ....");
-
-
             #endregion
 
+
+        }
+
+
+
+        public static void Commit()
+        {
+            Console.WriteLine($"Saving start at {DateTime.Now} ....");
+            DestinationContext.SaveChanges();
+            Console.WriteLine($"Saving finished at {DateTime.Now} ....");
 
         }
     }
