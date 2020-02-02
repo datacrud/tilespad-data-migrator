@@ -6,6 +6,8 @@ using Client.Extensions;
 using Client.Migrators;
 using Client.Providers;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SaaSDatabase.Models;
 using StandaloneDatabase.Models;
 using AggregatedCounter = StandaloneDatabase.Models.AggregatedCounter;
@@ -51,8 +53,20 @@ namespace Client
 {
     class Program
     {
+
         static void Main(string[] args)
         {
+            #region Startup
+
+            // Create service collection
+            ServiceCollection serviceCollection = new ServiceCollection();
+            Startup.ConfigureServices(serviceCollection);
+
+            // Create service provider
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+            #endregion
+
 
             #region initiatlize
 

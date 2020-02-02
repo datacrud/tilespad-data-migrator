@@ -1092,7 +1092,7 @@ namespace Client.Migrators
 
                 Console.WriteLine($"Saving start at {DateTime.Now} ....");
                 DestinationContext.SaveChanges();
-                Console.WriteLine($"Saving finshed at {DateTime.Now} ....");
+                Console.WriteLine($"Saving finished at {DateTime.Now} ....");
 
                 scope.Complete();
             }
