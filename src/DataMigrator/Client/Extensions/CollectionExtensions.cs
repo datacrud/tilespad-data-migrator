@@ -164,13 +164,13 @@ namespace Client.Extensions
 
         public static void Prepare<T>(this List<T> map, string tenantId, string companyId, List<string> userIds, params string[] nullHandlerPropertyNames)
         {
-            Console.WriteLine($"...... preparing tenant data start at {DateTime.Now} ......");
+            Console.WriteLine($"...... preparing tenant data start at {DateTime.Now} ...... total {map.Count} items");
             map.SetNull(userIds, nullHandlerPropertyNames);
             map.CheckTime();
             map.SetTenantId(tenantId);
             map.SetCompanyId(companyId);
             map.EnsureTenantId(tenantId);
-            Console.WriteLine($"...... preparing tenant data end at {DateTime.Now} ......");
+            Console.WriteLine($"...... preparing tenant data end at {DateTime.Now} ...... total {map.Count} items");
         }
 
     }

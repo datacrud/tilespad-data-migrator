@@ -120,13 +120,13 @@ namespace Client
 
             var dailyItems = entityTypes.Where(x => x.Name.Contains(".Daily")).ToList();
 
-            var enumerable = entityTypes.Except(queue.ToList()).ToList();
-            enumerable = enumerable.Except(dailyItems).ToList().OrderBy(x=> x.Name).ToList();
+            //var enumerable = entityTypes.Except(queue.ToList()).ToList();
+            //enumerable = enumerable.Except(dailyItems).ToList().OrderBy(x=> x.Name).ToList();
 
-            foreach (var entityType in enumerable)
-            {
-                queue.Enqueue(entityType);
-            }
+            //foreach (var entityType in enumerable)
+            //{
+            //    queue.Enqueue(entityType);
+            //}
 
             foreach (var dailyItem in dailyItems)
             {
