@@ -36,6 +36,7 @@ namespace SaaSDatabase.Models
         public string CompanyId { get; set; }
         public string DeviceInfo { get; set; }
         public string IpAddress { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

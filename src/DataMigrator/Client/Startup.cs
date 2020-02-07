@@ -29,7 +29,7 @@ namespace Client
 
             //Add dbContext
             services.AddDbContext<TilesCornerDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("SourceConnection")));
-            services.AddDbContext<TilesPadDBContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DestinationConnection")));
+            services.AddDbContext<TilesPadDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DestinationConnection")));
 
 
             // Add logging

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SaaSDatabase.Models
 {
-    public partial class TilesPadDBContext : DbContext
+    public partial class TilesPadDbContext : DbContext
     {
-        public TilesPadDBContext()
+        public TilesPadDbContext()
         {
         }
 
-        public TilesPadDBContext(DbContextOptions<TilesPadDBContext> options)
+        public TilesPadDbContext(DbContextOptions<TilesPadDbContext> options)
             : base(options)
         {
         }
@@ -116,7 +116,7 @@ namespace SaaSDatabase.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=TilesPadDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=TilesPadDb;Trusted_Connection=True;");
             }
         }
 

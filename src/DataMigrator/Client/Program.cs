@@ -70,7 +70,7 @@ namespace Client
 
             #region initiatlize
 
-            Migrator.Initialize(new TilesCornerDbContext(), new TilesPadDBContext());
+            Migrator.Initialize(new TilesCornerDbContext(), new TilesPadDbContext());
 
             Console.WriteLine("Enter you tenancy name to start the migration");
             Console.WriteLine("tilescorner");
@@ -163,7 +163,7 @@ namespace Client
                 var sourceType = standaloneDatabaseAssemblyTypes.FirstOrDefault(t => t.FullName == item.Name);
                 if (sourceType != null)
                 {
-                    Migrator.Initialize(new TilesCornerDbContext(),new TilesPadDBContext());
+                    Migrator.Initialize(new TilesCornerDbContext(),new TilesPadDbContext());
 
                     var queryable = Migrator.SourceContext.Set(sourceType);
                     var objects = queryable.ToList();

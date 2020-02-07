@@ -26,6 +26,7 @@ namespace SaaSDatabase.Models
         public int? Order { get; set; }
         public string DeviceInfo { get; set; }
         public string IpAddress { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual AspNetUsers CreatedByNavigation { get; set; }
         public virtual AspNetUsers DeletedByNavigation { get; set; }

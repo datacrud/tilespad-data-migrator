@@ -41,6 +41,7 @@ namespace SaaSDatabase.Models
         public int ReturnedBox { get; set; }
         public int ReturnedQuantity { get; set; }
         public double ReturnedSquarefit { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

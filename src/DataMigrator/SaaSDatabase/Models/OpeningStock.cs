@@ -32,6 +32,7 @@ namespace SaaSDatabase.Models
         public int? Order { get; set; }
         public double CostPrice { get; set; }
         public double SalePrice { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

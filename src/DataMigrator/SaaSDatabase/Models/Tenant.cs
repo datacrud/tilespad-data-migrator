@@ -113,6 +113,7 @@ namespace SaaSDatabase.Models
         public int? BusinessType { get; set; }
         public int? Order { get; set; }
         public bool IsDemo { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual AspNetUsers CreatedByNavigation { get; set; }
         public virtual AspNetUsers DeletedByNavigation { get; set; }

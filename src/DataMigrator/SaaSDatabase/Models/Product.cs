@@ -61,6 +61,7 @@ namespace SaaSDatabase.Models
         public int? MeasurementType { get; set; }
         public string ImageName { get; set; }
         public string ImagePath { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual Company Company { get; set; }

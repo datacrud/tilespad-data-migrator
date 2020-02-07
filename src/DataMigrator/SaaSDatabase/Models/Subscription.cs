@@ -39,6 +39,7 @@ namespace SaaSDatabase.Models
         public double PackageDiscountAmount { get; set; }
         public double PackageCharge { get; set; }
         public int? Order { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Company Company { get; set; }
         public virtual AspNetUsers CreatedByNavigation { get; set; }

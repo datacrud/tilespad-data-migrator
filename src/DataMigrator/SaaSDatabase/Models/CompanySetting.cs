@@ -42,6 +42,7 @@ namespace SaaSDatabase.Models
         public bool IsSendSmsToCustomerForDelivery { get; set; }
         public bool IsSendSmsToCustomerForTransaction { get; set; }
         public bool EnableStockLessFeatures { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Company Company { get; set; }
         public virtual AspNetUsers CreatedByNavigation { get; set; }

@@ -33,6 +33,7 @@ namespace SaaSDatabase.Models
         public int? Order { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime? Date { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

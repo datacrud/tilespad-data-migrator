@@ -32,6 +32,7 @@ namespace SaaSDatabase.Models
         public string EntityId { get; set; }
         public int? EntityName { get; set; }
         public double? EntityNotableAmount { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Company Company { get; set; }

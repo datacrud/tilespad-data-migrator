@@ -12,7 +12,7 @@ namespace Client.Providers
 
         public static string GetTenantId(string tenancyName)
         {
-            using (var db = new TilesPadDBContext())
+            using (var db = new TilesPadDbContext())
             {
                 var tenant = db.Tenant.AsNoTracking().FirstOrDefault(x => x.TenancyName == tenancyName);
                 if (tenant != null)
@@ -31,7 +31,7 @@ namespace Client.Providers
 
         public static string GetCompanyId(string tenantId)
         {
-            using (var db = new TilesPadDBContext())
+            using (var db = new TilesPadDbContext())
             {
                 var company = db.Company.AsNoTracking().FirstOrDefault(x => x.TenantId == tenantId);
                 if (company != null)

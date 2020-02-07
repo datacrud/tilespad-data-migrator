@@ -52,6 +52,7 @@ namespace SaaSDatabase.Models
         public bool IsSoldOut { get; set; }
         public bool IsDelivered { get; set; }
         public bool IsOfferItem { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Category Category { get; set; }

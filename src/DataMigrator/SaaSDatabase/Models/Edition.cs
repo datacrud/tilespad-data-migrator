@@ -45,6 +45,7 @@ namespace SaaSDatabase.Models
         public int MaximumNoOfShowroom { get; set; }
         public double HalfYearlyPrice { get; set; }
         public double QuarterPrice { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual AspNetUsers CreatedByNavigation { get; set; }
         public virtual AspNetUsers DeletedByNavigation { get; set; }

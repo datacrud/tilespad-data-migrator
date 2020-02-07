@@ -36,6 +36,7 @@ namespace SaaSDatabase.Models
         public string ParentId { get; set; }
         public bool IsSystemHead { get; set; }
         public bool IsAllowed { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Company Company { get; set; }

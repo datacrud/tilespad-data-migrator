@@ -24,6 +24,7 @@ namespace SaaSDatabase.Models
         public string IpAddress { get; set; }
         public int? Order { get; set; }
         public string Error { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Company Company { get; set; }

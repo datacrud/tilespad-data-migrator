@@ -114,6 +114,7 @@ namespace SaaSDatabase.Models
         public bool IsEmailConfirmed { get; set; }
         public bool IsChangeEmail { get; set; }
         public string AwaitingConfirmEmail { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual AspNetUsers CreatedByNavigation { get; set; }
         public virtual AspNetUsers DeletedByNavigation { get; set; }

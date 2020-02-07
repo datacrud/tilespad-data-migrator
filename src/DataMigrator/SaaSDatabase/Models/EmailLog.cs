@@ -34,6 +34,7 @@ namespace SaaSDatabase.Models
         public int ActionType { get; set; }
         public int? Order { get; set; }
         public string EmailReceiverUserId { get; set; }
+        public string OriginalPk { get; set; }
 
         public virtual Branch Branch { get; set; }
         public virtual Company Company { get; set; }
