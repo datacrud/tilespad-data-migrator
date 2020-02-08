@@ -5,6 +5,7 @@ using System.Reflection;
 using Client.Extensions;
 using Client.Migrators;
 using Client.Providers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,7 +61,7 @@ namespace Client
 
             // Create service collection
             ServiceCollection serviceCollection = new ServiceCollection();
-            Startup.ConfigureServices(serviceCollection);
+            var configureServices = Startup.ConfigureServices(serviceCollection);
 
             // Create service provider
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
@@ -70,13 +71,18 @@ namespace Client
 
             #region initiatlize
 
-            Migrator.Initialize(new TilesCornerDbContext(), new TilesPadDbContext());
+            var sourceOptionsBuilder = new DbContextOptionsBuilder<TilesCornerDbContext>();
+            sourceOptionsBuilder.UseSqlServer(configureServices.GetConnectionString("SourceConnection"));
+
+            var destinationOptionsBuilder = new DbContextOptionsBuilder<TilesPadDbContext>();
+            destinationOptionsBuilder.UseSqlServer(configureServices.GetConnectionString("DestinationConnection"));
+
+            Migrator.Initialize(new TilesCornerDbContext(sourceOptionsBuilder.Options), new TilesPadDbContext(destinationOptionsBuilder.Options));
 
             Console.WriteLine("Enter you tenancy name to start the migration");
-            Console.WriteLine("tilescorner");
-            string tenancyName = "tilescorner"; //Console.ReadLine();
-            string tenantId = MigrationProvider.GetTenantId(tenancyName);
-            var companyId = MigrationProvider.GetCompanyId(tenantId);
+            string tenancyName = Console.ReadLine();
+            string tenantId = MigrationProvider.GetTenantId(tenancyName, destinationOptionsBuilder);
+            var companyId = MigrationProvider.GetCompanyId(tenantId, destinationOptionsBuilder);
 
             Migrator.Setup(tenantId, companyId);
 
@@ -163,7 +169,7 @@ namespace Client
                 var sourceType = standaloneDatabaseAssemblyTypes.FirstOrDefault(t => t.FullName == item.Name);
                 if (sourceType != null)
                 {
-                    Migrator.Initialize(new TilesCornerDbContext(),new TilesPadDbContext());
+                    Migrator.Initialize(new TilesCornerDbContext(sourceOptionsBuilder.Options),new TilesPadDbContext(destinationOptionsBuilder.Options));
 
                     var queryable = Migrator.SourceContext.Set(sourceType);
                     var objects = queryable.ToList();
