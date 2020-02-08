@@ -57,6 +57,8 @@ namespace Client
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Initializing...");
+
             #region Startup
 
             // Create service collection
