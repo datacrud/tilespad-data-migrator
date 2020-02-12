@@ -18,7 +18,7 @@ namespace SaaSDatabase.Models
         public string Id { get; set; }
         public int Identity { get; set; }
         public DateTime Date { get; set; }
-        public string OrderNumber { get; set; }
+        public string InvoiceNumber { get; set; }
         public string SupplierId { get; set; }
         public string EmployeeId { get; set; }
         public string Note { get; set; }

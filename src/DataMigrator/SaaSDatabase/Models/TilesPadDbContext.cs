@@ -6,9 +6,9 @@ namespace SaaSDatabase.Models
 {
     public partial class TilesPadDbContext : DbContext
     {
-        //public TilesPadDbContext()
-        //{
-        //}
+        public TilesPadDbContext()
+        {
+        }
 
         public TilesPadDbContext(DbContextOptions<TilesPadDbContext> options)
             : base(options)
@@ -473,7 +473,7 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
-                entity.HasIndex(e => e.UserName)
+                entity.HasIndex(e => new { e.UserName, e.TenantId })
                     .HasName("UserNameIndex")
                     .IsUnique();
 
@@ -502,6 +502,10 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.PasswordChangeConfirmationCodeExpireTime).HasColumnType("datetime");
 
                 entity.Property(e => e.PhoneConfirmationCodeExpireTime).HasColumnType("datetime");
+
+                entity.Property(e => e.TenantId)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
@@ -1130,6 +1134,9 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.BranchId)
                     .HasName("IX_BranchId");
 
+                entity.HasIndex(e => e.Code)
+                    .HasName("IX_Code");
+
                 entity.HasIndex(e => e.CompanyId)
                     .HasName("IX_CompanyId");
 
@@ -1146,12 +1153,20 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
+                entity.HasIndex(e => e.Name)
+                    .HasName("IX_Name");
+
+                entity.HasIndex(e => e.Phone)
+                    .HasName("IX_Phone");
+
                 entity.HasIndex(e => e.TenantId)
                     .HasName("IX_TenantId");
 
                 entity.Property(e => e.Id).HasMaxLength(128);
 
                 entity.Property(e => e.BranchId).HasMaxLength(128);
+
+                entity.Property(e => e.Code).HasMaxLength(50);
 
                 entity.Property(e => e.CompanyId).HasMaxLength(128);
 
@@ -1167,7 +1182,11 @@ namespace SaaSDatabase.Models
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(128);
 
-                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Phone).HasMaxLength(50);
 
                 entity.Property(e => e.TenantId).HasMaxLength(128);
 
@@ -1880,6 +1899,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -1908,6 +1930,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -2123,6 +2147,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -2149,6 +2176,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.DepositHeadId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -2500,6 +2529,9 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.BranchId)
                     .HasName("IX_BranchId");
 
+                entity.HasIndex(e => e.Code)
+                    .HasName("IX_Code");
+
                 entity.HasIndex(e => e.CompanyId)
                     .HasName("IX_CompanyId");
 
@@ -2516,12 +2548,20 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
+                entity.HasIndex(e => e.Name)
+                    .HasName("IX_Name");
+
+                entity.HasIndex(e => e.Surname)
+                    .HasName("IX_Surname");
+
                 entity.HasIndex(e => e.TenantId)
                     .HasName("IX_TenantId");
 
                 entity.Property(e => e.Id).HasMaxLength(128);
 
                 entity.Property(e => e.BranchId).HasMaxLength(128);
+
+                entity.Property(e => e.Code).HasMaxLength(100);
 
                 entity.Property(e => e.CompanyId).HasMaxLength(128);
 
@@ -2538,6 +2578,10 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(128);
+
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.Surname).HasMaxLength(256);
 
                 entity.Property(e => e.TenantId).HasMaxLength(128);
 
@@ -2668,6 +2712,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -2694,6 +2741,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.ExpenseHeadId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -3819,6 +3868,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -3845,6 +3897,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -4124,6 +4178,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -4156,6 +4213,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -4380,6 +4439,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -4409,6 +4471,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -4663,6 +4727,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -4689,6 +4756,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.Deleted).HasColumnType("datetime");
 
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -5056,6 +5125,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -5084,6 +5156,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -5823,6 +5897,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -5860,6 +5937,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.DestinationWarehouseId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -5960,6 +6039,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -5995,6 +6077,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DestinationWarehouseId).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -6178,6 +6262,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -6209,6 +6296,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DestinationWarehouseId).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -6409,6 +6498,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -6435,6 +6527,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -6506,6 +6600,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -6532,6 +6629,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -6606,6 +6705,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -6631,6 +6733,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
@@ -6915,6 +7019,9 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.BranchId)
                     .HasName("IX_BranchId");
 
+                entity.HasIndex(e => e.Code)
+                    .HasName("IX_Code");
+
                 entity.HasIndex(e => e.CompanyId)
                     .HasName("IX_CompanyId");
 
@@ -6931,12 +7038,20 @@ namespace SaaSDatabase.Models
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
+                entity.HasIndex(e => e.Name)
+                    .HasName("IX_Name");
+
+                entity.HasIndex(e => e.Phone)
+                    .HasName("IX_Phone");
+
                 entity.HasIndex(e => e.TenantId)
                     .HasName("IX_TenantId");
 
                 entity.Property(e => e.Id).HasMaxLength(128);
 
                 entity.Property(e => e.BranchId).HasMaxLength(128);
+
+                entity.Property(e => e.Code).HasMaxLength(50);
 
                 entity.Property(e => e.CompanyId).HasMaxLength(128);
 
@@ -6952,7 +7067,9 @@ namespace SaaSDatabase.Models
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(128);
 
-                entity.Property(e => e.Phone).IsRequired();
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.Phone).HasMaxLength(50);
 
                 entity.Property(e => e.TenantId).HasMaxLength(128);
 
@@ -7512,6 +7629,9 @@ namespace SaaSDatabase.Models
                     .HasName("IX_Id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InvoiceNumber)
+                    .HasName("IX_InvoiceNumber");
+
                 entity.HasIndex(e => e.ModifiedBy)
                     .HasName("IX_ModifiedBy");
 
@@ -7547,6 +7667,8 @@ namespace SaaSDatabase.Models
                 entity.Property(e => e.Deleted).HasColumnType("datetime");
 
                 entity.Property(e => e.DeletedBy).HasMaxLength(128);
+
+                entity.Property(e => e.InvoiceNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 

@@ -2,7 +2,6 @@
 using AutoMapper;
 using Client.Extensions;
 using StandaloneDatabase.Models;
-
 namespace Client.Mappers
 {
     public class MapperProfiler: Profile
@@ -41,28 +40,56 @@ namespace Client.Mappers
             obj.CreateMap<DailyTransectionalBalance, SaaSDatabase.Models.DailyAccountBalance>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<DailyTransectionalProductStock, SaaSDatabase.Models.DailyProductStockBalance>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<DailyTransectionalStock, SaaSDatabase.Models.DailyStockBalance>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<Delivery, SaaSDatabase.Models.Delivery>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<Delivery, SaaSDatabase.Models.Delivery>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.DeliveryNumber))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<DeliveryProduct, SaaSDatabase.Models.DeliveryProduct>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<Deposit, SaaSDatabase.Models.Deposit>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<DepositDetail, SaaSDatabase.Models.DepositDetail>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<DepositHead, SaaSDatabase.Models.DepositHead>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<Deposit, SaaSDatabase.Models.Deposit>()
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalDepositAmount))
+                .ForMember(dest => dest.TotalDiscountAmount, opt => opt.MapFrom(src => src.TotalDiscountAmount))
+                .ForMember(dest => dest.TotalDueAmount, opt => opt.MapFrom(src => src.TotalRemainingAmount))
+                .IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<DepositDetail, SaaSDatabase.Models.DepositDetail>()
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.TotalAmount))
+                .ForMember(dest => dest.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
+                .ForMember(dest => dest.DueAmount, opt => opt.MapFrom(src => src.RemainingAmount))
+                .IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<DepositHead, SaaSDatabase.Models.DepositHead>()
+                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Employee, SaaSDatabase.Models.Employee>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Equity, SaaSDatabase.Models.Equity>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<Expense, SaaSDatabase.Models.Expense>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<ExpenseDetail, SaaSDatabase.Models.ExpenseDetail>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<ExpenseHead, SaaSDatabase.Models.ExpenseHead>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<Expense, SaaSDatabase.Models.Expense>()
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalExpenseAmount))
+                .ForMember(dest => dest.TotalDiscountAmount, opt => opt.MapFrom(src => src.TotalDiscountAmount))
+                .ForMember(dest => dest.TotalDueAmount, opt => opt.MapFrom(src => src.TotalDueAmount))
+                .IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<ExpenseDetail, SaaSDatabase.Models.ExpenseDetail>()
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.TotalAmount))
+                .ForMember(dest => dest.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
+                .ForMember(dest => dest.DueAmount, opt => opt.MapFrom(src => src.RemainingAmount))
+                .IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<ExpenseHead, SaaSDatabase.Models.ExpenseHead>()
+                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<LoginAttempt, SaaSDatabase.Models.LoginAttempt>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<OpeningStock, SaaSDatabase.Models.OpeningStock>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Partner, SaaSDatabase.Models.Partner>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Product, SaaSDatabase.Models.Product>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<PurchaseOrder, SaaSDatabase.Models.PurchaseOrder>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<PurchaseOrder, SaaSDatabase.Models.PurchaseOrder>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.OrderNumber))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseOrderPayment, SaaSDatabase.Models.PurchaseOrderPayment>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseOrderProduct, SaaSDatabase.Models.PurchaseOrderProduct>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<PurchaseReceive, SaaSDatabase.Models.PurchaseReceive>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<PurchaseReceive, SaaSDatabase.Models.PurchaseReceive>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.ReceiveNumber))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReceiveProduct, SaaSDatabase.Models.PurchaseReceiveProduct>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReturn, SaaSDatabase.Models.PurchaseReturn>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<PurchaseReturnProduct, SaaSDatabase.Models.PurchaseReturnProduct>().IgnoreAllVirtualProperties().ReverseMap();
-            obj.CreateMap<Sale, SaaSDatabase.Models.Sale>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<Sale, SaaSDatabase.Models.Sale>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.OrderNumber))
+                .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<SalePayment, SaaSDatabase.Models.SalePayment>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<SaleProduct, SaaSDatabase.Models.SaleProduct>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<SaleReturn, SaaSDatabase.Models.SaleReturn>().IgnoreAllVirtualProperties().ReverseMap();
