@@ -329,11 +329,11 @@ namespace Client.Migrators
                             Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
-                        else
-                        {
-                            Console.WriteLine($"...... updating {entity.Id} ....");
-                            dbSet.Update(entity);
-                        }
+                        //else
+                        //{
+                        //    Console.WriteLine($"...... updating {entity.Id} ....");
+                        //    dbSet.Update(entity);
+                        //}
                     }
                 }
 
@@ -450,11 +450,11 @@ namespace Client.Migrators
                             Console.WriteLine($"...... confirming {entity.Id} ....");
                             dbSet.Add(entity);
                         }
-                        else
-                        {
-                            Console.WriteLine($"...... updating {entity.Id} ....");
-                            dbSet.Update(entity);
-                        }
+                        //else
+                        //{
+                        //    Console.WriteLine($"...... updating {entity.Id} ....");
+                        //    dbSet.Update(entity);
+                        //}
                     }
                 }
 
@@ -1013,6 +1013,11 @@ namespace Client.Migrators
                                 dbSet.Add(entity);
                                 i++;
                             }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
+                            }
 
                             if (i % 500 == 0)
                             {
@@ -1054,6 +1059,11 @@ namespace Client.Migrators
                                 Console.WriteLine($"...... confirming {entity.Id} ....");
                                 dbSet.Add(entity);
                                 i++;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
                             }
 
                             if (i % 500 == 0)
@@ -1097,6 +1107,11 @@ namespace Client.Migrators
                                 dbSet.Add(entity);
                                 i++;
                             }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
+                            }
 
                             if (i % 500 == 0)
                             {
@@ -1136,6 +1151,11 @@ namespace Client.Migrators
                                 Console.WriteLine($"...... confirming {entity.Id} ....");
                                 dbSet.Add(entity);
                                 i++;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
                             }
 
                             if (i % 500 == 0)
@@ -1177,6 +1197,11 @@ namespace Client.Migrators
                                 dbSet.Add(entity);
                                 i++;
                             }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
+                            }
 
                             if (i % 500 == 0)
                             {
@@ -1217,6 +1242,11 @@ namespace Client.Migrators
                                 dbSet.Add(entity);
                                 i++;
                             }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
+                            }
 
                             if (i % 500 == 0)
                             {
@@ -1256,6 +1286,11 @@ namespace Client.Migrators
                                 Console.WriteLine($"...... confirming {entity.Id} ....");
                                 dbSet.Add(entity);
                                 i++;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"...... updating {entity.Id} ....");
+                                dbSet.Update(entity);
                             }
 
                             if (i % 500 == 0)

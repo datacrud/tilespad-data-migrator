@@ -68,6 +68,7 @@ namespace Client.Mappers
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.TotalAmount))
                 .ForMember(dest => dest.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
                 .ForMember(dest => dest.DueAmount, opt => opt.MapFrom(src => src.RemainingAmount))
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.ExpenseType))
                 .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<ExpenseHead, SaaSDatabase.Models.ExpenseHead>()
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name))

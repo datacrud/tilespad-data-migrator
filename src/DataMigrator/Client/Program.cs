@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Reflection;
 using Client.Extensions;
 using Client.Migrators;
 using Client.Providers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +56,9 @@ namespace Client
 {
     class Program
     {
+        private static DbContextOptionsBuilder<TilesCornerDbContext> _sourceOptionsBuilder;
+        private static DbContextOptionsBuilder<TilesPadDbContext> _destinationOptionsBuilder;
+        private static IConfigurationRoot _configureServices;
 
         static void Main(string[] args)
         {
@@ -63,44 +68,149 @@ namespace Client
 
             // Create service collection
             ServiceCollection serviceCollection = new ServiceCollection();
-            var configureServices = Startup.ConfigureServices(serviceCollection);
+            _configureServices = Startup.ConfigureServices(serviceCollection);
 
             // Create service provider
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-
+            
             #endregion
 
 
             #region initiatlize
 
-            var sourceOptionsBuilder = new DbContextOptionsBuilder<TilesCornerDbContext>();
-            sourceOptionsBuilder.UseSqlServer(configureServices.GetConnectionString("SourceConnection"));
+            _sourceOptionsBuilder = new DbContextOptionsBuilder<TilesCornerDbContext>();
+            _sourceOptionsBuilder.UseSqlServer(_configureServices.GetConnectionString("SourceConnection"));
 
-            var destinationOptionsBuilder = new DbContextOptionsBuilder<TilesPadDbContext>();
-            destinationOptionsBuilder.UseSqlServer(configureServices.GetConnectionString("DestinationConnection"));
+            _destinationOptionsBuilder = new DbContextOptionsBuilder<TilesPadDbContext>();
+            _destinationOptionsBuilder.UseSqlServer(_configureServices.GetConnectionString("DestinationConnection"));
 
-            Migrator.Initialize(new TilesCornerDbContext(sourceOptionsBuilder.Options), new TilesPadDbContext(destinationOptionsBuilder.Options));
+            Migrator.Initialize(new TilesCornerDbContext(_sourceOptionsBuilder.Options), new TilesPadDbContext(_destinationOptionsBuilder.Options));
 
-            Console.WriteLine("Enter you tenancy name to start the migration");
+            Console.WriteLine("Enter you tenancy name to start the operation");
             string tenancyName = Console.ReadLine();
-            string tenantId = MigrationProvider.GetTenantId(tenancyName, destinationOptionsBuilder);
-            var companyId = MigrationProvider.GetCompanyId(tenantId, destinationOptionsBuilder);
+            string tenantId = MigrationProvider.GetTenantId(tenancyName, _destinationOptionsBuilder);
+            var companyId = MigrationProvider.GetCompanyId(tenantId, _destinationOptionsBuilder);
 
             Migrator.Setup(tenantId, companyId);
 
-            Console.WriteLine($"Migration Started at {DateTime.Now}");
+            Console.WriteLine($"{tenancyName} is found on SaaS database. What do you want to do now?");
+            Console.WriteLine($"1. Migrate \n2. Clean\n3. Exit");
+
+            string action = Console.ReadLine();
 
             #endregion
 
+            if(action == "1" || action?.ToLower() == "migrate") DoMigration(tenantId, companyId);
+            if(action == "2" || action?.ToLower() == "clean") DoClean(tenantId, companyId);
+            if (action == "3" || action?.ToLower() == "exit")
+            {
+                Console.WriteLine($"Operation exit for {tenancyName}");
+            }
 
-           
+        }
+
+        //Delete tenant and all related data from SaaS Database
+        private static void DoClean(string tenantId, string companyId)
+        {
+            List<IEntityType> entityTypes = Migrator.DestinationContext.Model.GetEntityTypes().OrderBy(x => x.Name).ToList();
+
+            var saaSDatabaseAssembly = Assembly.Load($"{nameof(SaaSDatabase)}");
+            var saaSDatabaseAssemblyTypes = saaSDatabaseAssembly.GetTypes();
+
+            Stack<IEntityType> stack = new Stack<IEntityType>();
+
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Tenant).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Company).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Warehouse).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Branch).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.AspNetUsers).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.AppRoles).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Bank).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Customer).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Supplier).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Category).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Subcategory).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Product).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.SupplierCategory).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Partner).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Employee).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.DepositHead).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Deposit).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.ExpenseHead).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Expense).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.PurchaseOrder).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.PurchaseReceive).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.PurchaseReturn).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Sale).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Delivery).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.SaleReturn).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.TimeSheet).FullName));
+
+            var enumerable = entityTypes.Except(stack.ToList()).ToList();
+
+            foreach (var entityType in enumerable)
+            {
+                stack.Push(entityType);
+            }
+
+            //_destinationOptionsBuilder.UseSqlServer(_configureServices.GetConnectionString("DestinationConnection") + "Foreign Keys=false;");
+            Migrator.Initialize(new TilesCornerDbContext(_sourceOptionsBuilder.Options), new TilesPadDbContext(_destinationOptionsBuilder.Options));
+
+            foreach (var item in stack)
+            {
+                Console.WriteLine($"Traversing  {item.Name}.....");
+
+                if (item.Name == $"{typeof(SaaSDatabase.Models.AggregatedCounter).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Hash).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Counter).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Job).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.JobParameter).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.JobQueue).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.List).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.MigrationHistory).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Schema).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Server).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Set).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.State).FullName}") continue;
+
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Edition).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Feature).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.Rfq).FullName}") continue;
+                if (item.Name == $"{typeof(SaaSDatabase.Models.HostSetting).FullName}") continue;
+
+                var entityType = saaSDatabaseAssemblyTypes.FirstOrDefault(t => t.FullName == item.Name);
+                if (entityType != null)
+                {
+                    var queryable = Migrator.DestinationContext.Set(entityType);
+
+                    var objects = item.Name == $"{typeof(SaaSDatabase.Models.Tenant).FullName}"
+                        ? queryable.Where($"Id==@0", tenantId).ToList()
+                        : queryable.Where("TenantId==@0", tenantId).ToList();
+
+                    if (objects.Any())
+                    {
+                        Console.WriteLine($"Deleting {objects.Count} items from {entityType}.....");
+                        Migrator.DestinationContext.BulkDelete(objects);
+                        Migrator.DestinationContext.BulkSaveChanges();
+                    }
+                }
+            }
+
+            Migrator.DestinationContext.BulkSaveChanges();
+        }
+
+
+        private static void DoMigration(string tenantId, string companyId)
+        {
 
             #region Read source database entities
+
+            Console.WriteLine($"Migration Started at {DateTime.Now}");
 
             var standaloneDatabaseAssembly = Assembly.Load($"{nameof(StandaloneDatabase)}");
             var standaloneDatabaseAssemblyTypes = standaloneDatabaseAssembly.GetTypes();
 
-            List<IEntityType> entityTypes = Migrator.SourceContext.Model.GetEntityTypes().OrderBy(x=> x.Name).ToList();
+            List<IEntityType> entityTypes = Migrator.SourceContext.Model.GetEntityTypes().OrderBy(x => x.Name).ToList();
             Queue<IEntityType> queue = new Queue<IEntityType>();
 
             queue.Enqueue(entityTypes.FirstOrDefault(x => x.Name == typeof(Warehouse).FullName));
@@ -147,31 +257,31 @@ namespace Client
                 #region Handel Exceptions
 
                 if (item.Name == $"{typeof(AggregatedCounter).FullName}") continue;
-                if(item.Name == $"{typeof(Hash).FullName}") continue;
-                if(item.Name == $"{typeof(Counter).FullName}") continue;
-                if(item.Name == $"{typeof(Job).FullName}") continue;
-                if(item.Name == $"{typeof(JobParameter).FullName}") continue;
-                if(item.Name == $"{typeof(JobQueue).FullName}") continue;
-                if(item.Name == $"{typeof(List).FullName}") continue;
-                if(item.Name == $"{typeof(MigrationHistory).FullName}") continue;
-                if(item.Name == $"{typeof(Schema).FullName}") continue;
-                if(item.Name == $"{typeof(Server).FullName}") continue;
-                if(item.Name == $"{typeof(Set).FullName}") continue;
-                if(item.Name == $"{typeof(State).FullName}") continue;
+                if (item.Name == $"{typeof(Hash).FullName}") continue;
+                if (item.Name == $"{typeof(Counter).FullName}") continue;
+                if (item.Name == $"{typeof(Job).FullName}") continue;
+                if (item.Name == $"{typeof(JobParameter).FullName}") continue;
+                if (item.Name == $"{typeof(JobQueue).FullName}") continue;
+                if (item.Name == $"{typeof(List).FullName}") continue;
+                if (item.Name == $"{typeof(MigrationHistory).FullName}") continue;
+                if (item.Name == $"{typeof(Schema).FullName}") continue;
+                if (item.Name == $"{typeof(Server).FullName}") continue;
+                if (item.Name == $"{typeof(Set).FullName}") continue;
+                if (item.Name == $"{typeof(State).FullName}") continue;
 
-                if(item.Name == $"{typeof(AspNetRoles).FullName}") continue;
-                if(item.Name == $"{typeof(AspNetUserRoles).FullName}") continue;
-                if(item.Name == $"{typeof(AspNetPermission).FullName}") continue;
-                if(item.Name == $"{typeof(AspNetResource).FullName}") continue;
-                if(item.Name == $"{typeof(AspNetUserLogins).FullName}") continue;
-                if(item.Name == $"{typeof(AspNetUserClaims).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetRoles).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetUserRoles).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetPermission).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetResource).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetUserLogins).FullName}") continue;
+                if (item.Name == $"{typeof(AspNetUserClaims).FullName}") continue;
 
                 #endregion
 
                 var sourceType = standaloneDatabaseAssemblyTypes.FirstOrDefault(t => t.FullName == item.Name);
                 if (sourceType != null)
                 {
-                    Migrator.Initialize(new TilesCornerDbContext(sourceOptionsBuilder.Options),new TilesPadDbContext(destinationOptionsBuilder.Options));
+                    Migrator.Initialize(new TilesCornerDbContext(_sourceOptionsBuilder.Options), new TilesPadDbContext(_destinationOptionsBuilder.Options));
 
                     var queryable = Migrator.SourceContext.Set(sourceType);
                     var objects = queryable.ToList();
@@ -186,6 +296,5 @@ namespace Client
             #endregion
 
         }
-
     }
 }
