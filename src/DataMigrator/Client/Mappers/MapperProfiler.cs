@@ -59,6 +59,7 @@ namespace Client.Mappers
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name))
                 .IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Employee, SaaSDatabase.Models.Employee>().IgnoreAllVirtualProperties().ReverseMap();
+            obj.CreateMap<SaaSDatabase.Models.Employee, SaaSDatabase.Models.Employee>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Equity, SaaSDatabase.Models.Equity>().IgnoreAllVirtualProperties().ReverseMap();
             obj.CreateMap<Expense, SaaSDatabase.Models.Expense>()
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalExpenseAmount))

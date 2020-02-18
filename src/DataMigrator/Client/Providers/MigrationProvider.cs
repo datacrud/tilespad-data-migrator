@@ -25,7 +25,8 @@ namespace Client.Providers
                 {
                     var message = $"No tenant found with tenant name {tenancyName}";
                     Console.WriteLine(message);
-                    throw new Exception(message);
+                    //throw new Exception(message);
+                    return null;
                 }
             }
 
