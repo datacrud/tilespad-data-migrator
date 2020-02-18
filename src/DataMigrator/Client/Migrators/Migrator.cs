@@ -32,6 +32,21 @@ namespace Client.Migrators
             DestinationContext.ChangeTracker.LazyLoadingEnabled = false;
         }
 
+        public static bool IsDatabaseExist(DbContext db)
+        {
+            try
+            {
+                db.Database.OpenConnection();
+                db.Database.CloseConnection();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static void Setup(string tenantId, string companyId)
         {
             TenantId = tenantId;

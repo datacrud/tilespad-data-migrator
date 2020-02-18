@@ -8,6 +8,7 @@ using Client.Migrators;
 using Client.Providers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -80,9 +81,11 @@ namespace Client
 
             _sourceOptionsBuilder = new DbContextOptionsBuilder<TilesCornerDbContext>();
             _sourceOptionsBuilder.UseSqlServer(_configureServices.GetConnectionString("SourceConnection"));
+            Console.WriteLine($"Connected source database....{_configureServices.GetConnectionString("SourceConnection")}");
 
             _destinationOptionsBuilder = new DbContextOptionsBuilder<TilesPadDbContext>();
             _destinationOptionsBuilder.UseSqlServer(_configureServices.GetConnectionString("DestinationConnection"));
+            Console.WriteLine($"Connected target database....{_configureServices.GetConnectionString("DestinationConnection")}");
 
             Migrator.Initialize(new TilesCornerDbContext(_sourceOptionsBuilder.Options), new TilesPadDbContext(_destinationOptionsBuilder.Options));
 
@@ -100,8 +103,109 @@ namespace Client
 
             #endregion
 
-            if(action == "1" || action?.ToLower() == "migrate") DoMigration(tenantId, companyId);
-            if(action == "2" || action?.ToLower() == "clean") DoClean(tenantId, companyId);
+            if (action == "1" || action?.ToLower() == "migrate")
+            {
+                Console.WriteLine($"Please enter the source database name...");
+                while (true)
+                {
+                    var sourceDatabaseName = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(sourceDatabaseName))
+                    {
+                        var connectionString = _configureServices.GetConnectionString("SourceConnection");
+                        var strings = connectionString.Split(";");
+
+                        var database = strings.FirstOrDefault(x => x.StartsWith("Database"));
+                        var databaseIndex = strings.IndexOf(database);
+
+                        var split = database.Split("=");
+                        split[1] = sourceDatabaseName;
+                        strings[databaseIndex] = $"{split[0]}={split[1]}";
+
+                        connectionString = string.Join(";", strings);
+                        
+                        _sourceOptionsBuilder.UseSqlServer(connectionString);
+                        Console.WriteLine($"Connecting to source database....{connectionString}");
+
+                        Migrator.Initialize(new TilesCornerDbContext(_sourceOptionsBuilder.Options), new TilesPadDbContext(_destinationOptionsBuilder.Options));
+
+                        if (Migrator.IsDatabaseExist(Migrator.SourceContext))
+                        {
+                            Console.WriteLine($"Database found....connection success....");
+                            break;
+                        }
+
+                    }
+                    Console.WriteLine($"Could not find the database with given key, please enter another name to continue.....");
+                }
+
+                StartMigration:
+                Console.WriteLine($"All are set now, are you sure you want to start migration of {tenancyName} now???.....");
+                Console.WriteLine($"\n1. Yes \t2. No \t0. Exit");
+
+                string confirm = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(confirm))
+                {
+                    if (confirm.ToLower() == "yes" || confirm == "1")
+                    {
+                        DoMigration(tenantId, companyId);
+                    }
+                    else if (confirm.ToLower() == "no" || confirm == "2")
+                    {
+
+                    }
+                    else if (confirm.ToLower() == "exit" || confirm == "0")
+                    {
+                        action = "3";
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Wrong input....");
+                        goto StartMigration;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Wrong input....");
+                    goto StartMigration;
+                }
+            }
+
+            if (action == "2" || action?.ToLower() == "clean")
+            {
+                StartDeletion:
+                Console.WriteLine($"Are you sure you want to delete all data from {tenancyName}???.....");
+                Console.WriteLine($"\n1. Yes \t2. No \t0. Exit");
+
+                string confirm = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(confirm))
+                {
+                    if (confirm.ToLower() == "yes" || confirm == "1")
+                    {
+                        DoClean(tenantId, companyId);
+                    }
+                    else if (confirm.ToLower() == "no" || confirm == "2")
+                    {
+                        action = "3";
+                    }
+                    else if (confirm.ToLower() == "exit" || confirm == "0")
+                    {
+                        action = "3";
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Wrong input....");
+                        goto StartDeletion;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Wrong input....");
+                    goto StartDeletion;
+                }
+                
+            }
             if (action == "3" || action?.ToLower() == "exit")
             {
                 Console.WriteLine($"Operation exit for {tenancyName}");
@@ -235,6 +339,7 @@ namespace Client
             queue.Enqueue(entityTypes.FirstOrDefault(x => x.Name == typeof(Sale).FullName));
             queue.Enqueue(entityTypes.FirstOrDefault(x => x.Name == typeof(Delivery).FullName));
             queue.Enqueue(entityTypes.FirstOrDefault(x => x.Name == typeof(SaleReturn).FullName));
+            queue.Enqueue(entityTypes.FirstOrDefault(x => x.Name == typeof(TimeSheet).FullName));
 
             var dailyItems = entityTypes.Where(x => x.Name.Contains(".Daily")).ToList();
 
