@@ -18,7 +18,7 @@ namespace Client.Migrators
         public static DbContext SourceContext { get; private set; }
         public static DbContext DestinationContext { get; private set; }
 
-        private static readonly Mapper Mapper = new Mapper(MapperConfig.GetMapper());
+        public static readonly Mapper Mapper = new Mapper(MapperConfig.GetMapper());
 
         public static void Initialize(DbContext sourceContext, DbContext destinationContext)
         {

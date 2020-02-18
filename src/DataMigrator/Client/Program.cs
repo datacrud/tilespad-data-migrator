@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
+using AutoMapper;
 using Client.Extensions;
 using Client.Migrators;
 using Client.Providers;
@@ -224,10 +225,10 @@ namespace Client
             Stack<IEntityType> stack = new Stack<IEntityType>();
 
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Tenant).FullName));
+            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.AspNetUsers).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Company).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Warehouse).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Branch).FullName));
-            stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.AspNetUsers).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.AppRoles).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Bank).FullName));
             stack.Push(entityTypes.FirstOrDefault(x => x.Name == typeof(SaaSDatabase.Models.Customer).FullName));
@@ -293,6 +294,14 @@ namespace Client
 
                     if (objects.Any())
                     {
+                        if (item.Name == $"{typeof(SaaSDatabase.Models.AspNetUsers).FullName}")
+                        {
+                            var aspNetUserses = Migrator.Mapper.Map<List<SaaSDatabase.Models.AspNetUsers>>(objects);
+                            aspNetUserses.ForEach(x=> x.BranchId = null);
+                            Migrator.DestinationContext.BulkUpdate(aspNetUserses);
+                            Migrator.DestinationContext.BulkSaveChanges();
+                        }
+
                         Console.WriteLine($"Deleting {objects.Count} items from {entityType}.....");
                         Migrator.DestinationContext.BulkDelete(objects);
                         Migrator.DestinationContext.BulkSaveChanges();

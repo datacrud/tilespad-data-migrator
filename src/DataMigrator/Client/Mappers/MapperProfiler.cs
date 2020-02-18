@@ -11,6 +11,7 @@ namespace Client.Mappers
         {
             obj.CreateMap<AspNetRoles, SaaSDatabase.Models.AppRoles>().ReverseMap();
             obj.CreateMap<AspNetUsers, SaaSDatabase.Models.AspNetUsers>().ReverseMap();
+            obj.CreateMap<SaaSDatabase.Models.AspNetUsers, SaaSDatabase.Models.AspNetUsers>().ReverseMap();
             obj.CreateMap<AspNetUserRoles, SaaSDatabase.Models.AspNetUserRoles>().ReverseMap();
             obj.CreateMap<AspNetUserClaims, SaaSDatabase.Models.AspNetUserClaims>().ReverseMap();
             obj.CreateMap<AspNetUserLogins, SaaSDatabase.Models.AspNetUserLogins>().ReverseMap();
