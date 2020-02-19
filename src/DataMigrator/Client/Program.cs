@@ -401,6 +401,12 @@ namespace Client
 
             foreach (var item in queue)
             {
+                if (item == null)
+                {
+                    Console.WriteLine("Null item found");
+                    continue;
+                }
+
                 #region Handel Exceptions
 
                 if (item.Name == $"{typeof(StandaloneDatabase.Models.AggregatedCounter).FullName}") continue;
